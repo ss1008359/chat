@@ -1,5 +1,6 @@
 #include <QApplication>
 #include "ClientWindow.h"
+#include "LoginDialog.h"
 #include <QTextCodec>
 
 int main(int args,char**argv)
@@ -10,6 +11,16 @@ int main(int args,char**argv)
 	QTextCodec *codec = QTextCodec::codecForName("utf-8");
 	QTextCodec::setCodecForTr(codec);
 
-	ClientWindow w;
-	return app.exec();
+    LoginDialog login;
+    ClientWindow w;
+
+    QObject::connect(&login, SIGNAL(strName(const QString&)), &w, SLOT(setName(const QString&)));
+
+    login.show();
+    if (login.exec() == QDialog::Accepted) {
+        w.show();
+    }
+
+    return app.exec();
+    return 0;
 }

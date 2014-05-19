@@ -10,16 +10,41 @@
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
+#include <QKeyEvent>
+#include <QString>
+#include "SendMessage.h"
+#include "ThRecv.h"
+#include "ClientSocket.h"
 class ClientWindow : public QMainWindow
 {
+Q_OBJECT
 private:
-	QWidget *center;
-	QTextEdit *edtinfo;
+    QWidget *center;
+    QTextEdit *edtinfo;
 	QLineEdit *edtmsg;
 	QPushButton *btnsend;
 	QHBoxLayout *hlay;
 	QVBoxLayout *vlay;
+    //菜单栏
+    QMenuBar *bar;
+    QMenu *chatMenu;
+    QAction *actStart;
+    QAction *actExit;
+
+    //接受登录信息
+    QString strName;
+
+    ClientSocket client;
+    SendMessage  sendMessage;
+    ThRecv thRecv;
 public:
 	ClientWindow(QWidget *p=NULL);
+    void keyPressEvent( QKeyEvent * e );
+    QString getName(void);
+public slots:
+    void onStart();
+    void onExit();
+    void setName(const QString& letname);
+
 };
 #endif

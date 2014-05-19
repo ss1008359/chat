@@ -1,0 +1,6 @@
+#ifndef LOGINDLALOG_H
+#define LOGINDLALOG_H
+
+class LoginDialog: public QDialog 
+
+#endif // LOGINDLALOG_H

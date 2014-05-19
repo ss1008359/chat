@@ -14,7 +14,7 @@ private:
 	ServerSocket server;
 public:
 	void init() throw (ChatException);
-	void run();
+    void run();
 public: signals:
 	void sigInfo(const QString &);
 };

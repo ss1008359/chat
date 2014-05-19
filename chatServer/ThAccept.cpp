@@ -1,5 +1,5 @@
-#include "ThAccept.h"
 #include <cstdio>
+#include "ThAccept.h"
 #include "ThClient.h"
 #include "ServerWindows.h"
 
@@ -7,7 +7,7 @@ using namespace std;
 
 void ThAccept::init() throw(ChatException)
 {
-	sprintf(server.ip, "%s", "192.168.1.116");
+    sprintf(server.ip, "%s", "192.168.1.102");
 	server.port = 8888;
 	try {
 		server.initSocket();
@@ -19,7 +19,8 @@ void ThAccept::init() throw(ChatException)
 
 void ThAccept::run()	//在线程中接收客户连接
 {
-	while (true) {
+    bool stop = false;
+    while (!stop) {
 		try {
 			int fd = server.accept();
 			//发送信号
@@ -35,6 +36,7 @@ void ThAccept::run()	//在线程中接收客户连接
 		catch(ChatException e) {
 			//发送信号
 			emit sigInfo(tr("服务器崩溃"));
+            stop = true;
 		}
 	}
 }

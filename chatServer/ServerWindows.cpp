@@ -9,20 +9,25 @@ list<ThClient*> ServerWindows::allUsers;
 void ServerWindows::onStart()
 {
 //	QMessageBox::information(this, tr("提示"), tr("响应"));
-	try {
-        thAccept.init();
-        thAccept.info = info;
-		info->setTextColor(QColor(0, 255, 0));
-		info->append(tr("服务器启动成功!"));
-        connect(&thAccept, SIGNAL(sigInfo(const QString&)),
-				info, SLOT(append(const QString&)));
-        thAccept.start();
-		info->append(tr("服务器接收线程启动"));
-	}
-	catch (ChatException e) {
-		info->setTextColor(QColor(255, 0, 0));
-		info->append(tr(e.what()));
-	}
+    if(thAccept.info != info) {
+        try {
+            thAccept.init();
+            thAccept.info = info;
+            info->setTextColor(QColor(0, 255, 0));
+            info->append(tr("服务器启动成功!"));
+            connect(&thAccept, SIGNAL(sigInfo(const QString&)),
+                    info, SLOT(append(const QString&)));
+            thAccept.start();
+            info->append(tr("服务器接收线程启动"));
+        }
+        catch (ChatException e) {
+            info->setTextColor(QColor(255, 0, 0));
+            info->append(tr(e.what()));
+        }
+    }
+    else {
+        info->append(tr("服务器已启动"));
+    }
 }
 
 void ServerWindows::onExit()
@@ -38,11 +43,12 @@ ServerWindows::ServerWindows(QWidget *parent)
 	//初始化文本框
 	info = new QTextEdit;
 	info->setTextColor(QColor(255, 0, 0));
-	info->append(tr("欢迎使用聊天程序"));
+    info->append(tr("欢迎使用服务器程序"));
 	info->append(tr("================"));
 	info->setTextColor(QColor(0, 0, 0));
 	info->setFontPointSize(20);
 	info->append(tr("字体怎样？"));
+    info->setReadOnly(true);
 	this->setCentralWidget(info);
 	//初始化菜单
 	bar = new QMenuBar(this);
@@ -64,11 +70,11 @@ ServerWindows::ServerWindows(QWidget *parent)
 	status->addPermanentWidget(lbltip, 300);
 	status->addPermanentWidget(lblresult, 500);
 	status->addPermanentWidget(lbltime, 0);
+    this->setStatusBar(status);
 
-	this->setStatusBar(status);
 	connect(actStart, SIGNAL(triggered()),
 			this, SLOT(onStart()));
 	connect(actExit, SIGNAL(triggered()),
 			this, SLOT(onExit()));
-	this->setVisible(true);
+    //this->setVisible(true);
 }
