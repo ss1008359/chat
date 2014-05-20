@@ -25,6 +25,16 @@ void SendMessage::init() throw(ChatException)
     */
 }
 
+void SendMessage::toMsgUser()
+{
+    toSend(MSG_SHOW_USER);
+}
+
+void SendMessage::toMsgName()
+{
+    toSend(MSG_SHOW_NAME);
+}
+
 void SendMessage::toMsgChat()
 {
     toSend(MSG_SHOW_CHAT);
@@ -55,6 +65,14 @@ void SendMessage::toSend(int msgType)	//发送信息
         //显示在线用户
         case MSG_SHOW_USER: {
             msg.msgType = msgType;
+        }
+            break;
+
+        //将网名传给服务器
+        case MSG_SHOW_NAME: {
+            msg.msgType = msgType;
+            const char *bufName = name.toLocal8Bit();
+            memcpy(msg.msgName, bufName, sizeof(msg.msgName));
         }
             break;
 

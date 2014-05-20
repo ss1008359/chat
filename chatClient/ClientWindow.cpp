@@ -2,6 +2,7 @@
 #include "ChatException.h"
 //#include <QWidget>
 #include <Qt>
+#include <QMessageBox>
 #include <cstdio>
 
 QString ClientWindow::getName(void)
@@ -33,6 +34,7 @@ void ClientWindow::onStart()
             sendMessage.cli.port = client.port;
             sendMessage.info = edtmsg;
             sendMessage.name = strName;
+            sendMessage.toMsgName();
 
             edtinfo->append(tr("客户端启动成功"));
             connect(btnsend, SIGNAL(clicked()),
@@ -55,6 +57,16 @@ void ClientWindow::onStart()
     }
     else {
         edtinfo->append(tr("客户端已启动"));
+    }
+}
+
+void ClientWindow::onShowUesr()
+{
+    if (sendMessage.info != edtmsg) {
+        QMessageBox::warning( this, tr("Error"), tr("客户端未启动") );
+    }
+    else {
+        sendMessage.toMsgUser();
     }
 }
 
@@ -103,9 +115,12 @@ ClientWindow::ClientWindow(QWidget*p)
     bar = new QMenuBar(this);
     chatMenu = new QMenu(tr("客户端"), bar);
     actStart = new QAction(tr("启动"), chatMenu);
+    actShowOnlineUser = new QAction(tr("显示在线用户"), chatMenu);
     actExit = new QAction(tr("结束"), chatMenu);
 
     chatMenu->addAction(actStart);
+    chatMenu->addSeparator();
+    chatMenu->addAction(actShowOnlineUser);
     chatMenu->addSeparator();
     chatMenu->addAction(actExit);
 
@@ -123,6 +138,8 @@ ClientWindow::ClientWindow(QWidget*p)
 
     connect(actStart, SIGNAL(triggered()),
             this, SLOT(onStart()));
+    connect(actShowOnlineUser, SIGNAL(triggered()),
+            this, SLOT(onShowUesr()));
     connect(actExit, SIGNAL(triggered()),
             this, SLOT(onExit()));
 

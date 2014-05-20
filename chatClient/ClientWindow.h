@@ -32,6 +32,7 @@ private:
     QMenuBar *bar;
     QMenu *chatMenu;
     QAction *actStart;
+    QAction *actShowOnlineUser;
     QAction *actExit;
 
     //接受登录信息
@@ -47,6 +48,7 @@ public:
     QString getName(void);
 public slots:
     void onStart();
+    void onShowUesr();
     void onExit();
     void setMessage(loginData*);
 

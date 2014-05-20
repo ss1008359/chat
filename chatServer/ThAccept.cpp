@@ -30,7 +30,7 @@ void ThAccept::run()	//在线程中接收客户连接
     while (!stop) {
 		try {
             struct sockaddr_in addr;
-            int length = 0;
+            int length = sizeof(addr);
             memset(&addr, 0, sizeof(addr));
             int fd = server.accept(&addr, &length);
 			//发送信号
@@ -40,6 +40,11 @@ void ThAccept::run()	//在线程中接收客户连接
 			th->fd = fd;
             th->addr = addr;
             th->length = length;
+
+//            char ad[20];
+//            memset(&ad, 0, sizeof(ad));
+//            inet_ntop(AF_INET, &th->addr.sin_addr, ad, sizeof(ad));
+//            emit sigInfo(tr(ad));
 
 			ServerWindows::allUsers.push_back(th);
 			connect(th, SIGNAL(sigInfo(const QString&)),

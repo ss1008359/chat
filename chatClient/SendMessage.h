@@ -16,6 +16,8 @@ public:
     QString name;
 public:
     void init() throw (ChatException);
+    void toMsgName();
+    void toMsgUser();
 public slots:
     void toMsgChat();
 private:
