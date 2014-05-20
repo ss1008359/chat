@@ -15,7 +15,8 @@ HEADERS=ClientWindow.h \
     SendMessage.h \
     LoginDialog.h \
     LoginData.h \
-    IpAddress.h
+    IpAddress.h \
+    ConnectData.h
 
 CONFIG=release qt
 QT=core gui

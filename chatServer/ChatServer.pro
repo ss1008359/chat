@@ -11,7 +11,8 @@ HEADERS=ServerWindows.h		\
 		ServerSocket.h		\
 		ThAccept.h		\
 		ThClient.h \
-                IpAddress.h
+                IpAddress.h \
+    ConnectData.h
 CONFIG=release qt
 QT=core gui network
 TARGET=server

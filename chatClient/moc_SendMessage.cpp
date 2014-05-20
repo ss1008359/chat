@@ -36,7 +36,7 @@ static const uint qt_meta_data_SendMessage[] = {
 };
 
 static const char qt_meta_stringdata_SendMessage[] = {
-    "SendMessage\0\0toSend()\0"
+    "SendMessage\0\0toMsgChat()\0"
 };
 
 void SendMessage::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -45,7 +45,7 @@ void SendMessage::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         Q_ASSERT(staticMetaObject.cast(_o));
         SendMessage *_t = static_cast<SendMessage *>(_o);
         switch (_id) {
-        case 0: _t->toSend(); break;
+        case 0: _t->toMsgChat(); break;
         default: ;
         }
     }

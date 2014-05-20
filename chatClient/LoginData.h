@@ -4,7 +4,7 @@
 #include <QString>
 
 //保存登录时的必要信息
-typedef struct data {
+typedef struct login_data {
     QString name;
     QString ip;
 }loginData;

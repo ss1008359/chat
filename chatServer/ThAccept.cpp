@@ -1,4 +1,9 @@
 #include <cstdio>
+#include <cstdlib>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 #include "ThAccept.h"
 #include "ThClient.h"
 #include "ServerWindows.h"
@@ -24,12 +29,18 @@ void ThAccept::run()	//在线程中接收客户连接
     bool stop = false;
     while (!stop) {
 		try {
-			int fd = server.accept();
+            struct sockaddr_in addr;
+            int length = 0;
+            memset(&addr, 0, sizeof(addr));
+            int fd = server.accept(&addr, &length);
 			//发送信号
 			emit sigInfo(tr("有人连接"));
 			//建立子线程监听对应的客户
 			ThClient *th = new ThClient;
 			th->fd = fd;
+            th->addr = addr;
+            th->length = length;
+
 			ServerWindows::allUsers.push_back(th);
 			connect(th, SIGNAL(sigInfo(const QString&)),
 				this->info, SLOT(append(const QString&)));

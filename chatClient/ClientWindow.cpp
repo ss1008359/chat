@@ -36,7 +36,7 @@ void ClientWindow::onStart()
 
             edtinfo->append(tr("客户端启动成功"));
             connect(btnsend, SIGNAL(clicked()),
-                    &sendMessage, SLOT(toSend()));
+                    &sendMessage, SLOT(toMsgChat()));
             //接受信息线程
             thRecv.init();
             thRecv.cli.fd = client.fd;

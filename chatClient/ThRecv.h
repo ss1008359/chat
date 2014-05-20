@@ -4,6 +4,7 @@
 #include <QThread>
 #include "ClientSocket.h"
 #include "ChatException.h"
+#include "ConnectData.h"
 
 class ThRecv: public QThread {
 Q_OBJECT

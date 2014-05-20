@@ -16,6 +16,7 @@
 #include "ThRecv.h"
 #include "ClientSocket.h"
 #include "LoginData.h"
+#include "ConnectData.h"
 
 class ClientWindow : public QMainWindow
 {

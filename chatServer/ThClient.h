@@ -2,11 +2,18 @@
 #define TH_CLIENT_H
 
 #include <QThread>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include "ConnectData.h"
 
 class ThClient : public QThread {
 Q_OBJECT
 public:
 	int fd;
+    struct sockaddr_in addr;
+    int length;
 public:
 	void run();		//接收客户收据然后广播
 public: signals:

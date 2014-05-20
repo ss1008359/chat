@@ -3,6 +3,10 @@
 
 #include "ChatException.h"
 #include <QObject>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 
 class ServerSocket : public QObject {
 Q_OBJECT
@@ -12,7 +16,7 @@ public:
 	int port;
 	
 	void initSocket() throw (ChatException);	//服务器初始化
-	int accept() throw (ChatException);		//接收客户连接
+    int accept(struct sockaddr_in*, int*) throw (ChatException);		//接收客户连接
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include <QThread>
 #include "ClientSocket.h"
 #include "ChatException.h"
+#include "ConnectData.h"
 #include <QLineEdit>
 #include <QString>
 
@@ -16,7 +17,9 @@ public:
 public:
     void init() throw (ChatException);
 public slots:
-    void toSend();
+    void toMsgChat();
+private:
+    void toSend(int msgTpye);
 };
 
 #endif // THSEND_H

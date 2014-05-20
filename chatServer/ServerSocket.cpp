@@ -31,11 +31,12 @@ void ServerSocket::initSocket() throw (ChatException)
 
 }
 
-int ServerSocket::accept() throw (ChatException)
+int ServerSocket::accept(struct sockaddr_in *addr, int *length) throw (ChatException)
 {
 	//接收客户连接
 	int cfd;
-	cfd = ::accept(fd, NULL, 0);
+    //struct sockaddr_in ad;
+    cfd = ::accept(fd, (struct sockaddr*)addr, (socklen_t*)length);
 	if (cfd == -1) {
 		throw ChatException("accept错误");
 	}

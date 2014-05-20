@@ -1,5 +1,7 @@
 #include "ThRecv.h"
 #include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <sys/socket.h>
 
 using namespace std;
@@ -21,12 +23,13 @@ void ThRecv::init() throw(ChatException)
 
 void ThRecv::run()
 {
-    char buf[256];
+    msgData msg;
+    memset(&msg, 0, sizeof(msg));
     int r = 0;
     bool stop = false;
     while (!stop) {
         try {
-            r = recv(cli.fd, buf, 255, 0);
+            r = recv(cli.fd, &msg, sizeof(msg), 0);
             if (r < 0) {
                 throw ChatException("recv错误");
                 //stop = true;
@@ -36,7 +39,9 @@ void ThRecv::run()
                 //stop = true;
             }
             else {
-                buf[r] = 0;
+                char buf[2048];
+                memset(buf, 0, sizeof(buf));
+                memcpy(buf, msg.msgChat, sizeof(buf) - 1);
                 emit sigInfo(tr(buf));
             }
         }
