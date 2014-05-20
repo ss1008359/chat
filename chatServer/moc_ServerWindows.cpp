@@ -22,7 +22,7 @@ static const uint qt_meta_data_ServerWindows[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -31,13 +31,15 @@ static const uint qt_meta_data_ServerWindows[] = {
 
  // slots: signature, parameters, type, tag, flags
       15,   14,   14,   14, 0x0a,
-      25,   14,   14,   14, 0x0a,
+      30,   14,   14,   14, 0x0a,
+      40,   14,   14,   14, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_ServerWindows[] = {
-    "ServerWindows\0\0onStart()\0onExit()\0"
+    "ServerWindows\0\0getIp(QString)\0onStart()\0"
+    "onExit()\0"
 };
 
 void ServerWindows::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -46,12 +48,12 @@ void ServerWindows::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         Q_ASSERT(staticMetaObject.cast(_o));
         ServerWindows *_t = static_cast<ServerWindows *>(_o);
         switch (_id) {
-        case 0: _t->onStart(); break;
-        case 1: _t->onExit(); break;
+        case 0: _t->getIp((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 1: _t->onStart(); break;
+        case 2: _t->onExit(); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObjectExtraData ServerWindows::staticMetaObjectExtraData = {
@@ -86,9 +88,9 @@ int ServerWindows::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }

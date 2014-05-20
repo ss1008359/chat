@@ -30,17 +30,17 @@ static const uint qt_meta_data_LoginDialog[] = {
        1,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
-      17,   13,   12,   12, 0x05,
+      13,   12,   12,   12, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-      34,   12,   12,   12, 0x0a,
-      44,   12,   12,   12, 0x0a,
+      36,   12,   12,   12, 0x0a,
+      46,   12,   12,   12, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_LoginDialog[] = {
-    "LoginDialog\0\0str\0strName(QString)\0"
+    "LoginDialog\0\0strMessage(loginData*)\0"
     "loginok()\0logincancel()\0"
 };
 
@@ -50,7 +50,7 @@ void LoginDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         Q_ASSERT(staticMetaObject.cast(_o));
         LoginDialog *_t = static_cast<LoginDialog *>(_o);
         switch (_id) {
-        case 0: _t->strName((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 0: _t->strMessage((*reinterpret_cast< loginData*(*)>(_a[1]))); break;
         case 1: _t->loginok(); break;
         case 2: _t->logincancel(); break;
         default: ;
@@ -98,7 +98,7 @@ int LoginDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void LoginDialog::strName(const QString & _t1)
+void LoginDialog::strMessage(loginData * _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

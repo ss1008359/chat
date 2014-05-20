@@ -16,7 +16,7 @@ void ServerSocket::initSocket() throw (ChatException)
 	struct sockaddr_in addr;
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(port);
-	addr.sin_addr.s_addr = inet_addr(ip);
+    addr.sin_addr.s_addr = inet_addr(ip);
 	r = bind(fd, (struct sockaddr*)&addr, sizeof(addr));
 	if (r == -1) {
 		close(fd);

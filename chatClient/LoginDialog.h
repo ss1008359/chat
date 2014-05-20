@@ -6,24 +6,37 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
-//#include <QString>
+#include <QSpinBox>
+#include <QString>
+#include "LoginData.h"
 
 class LoginDialog: public QDialog {
 Q_OBJECT
 public:
     LoginDialog(QWidget *p=NULL);
+    QString getIpAddressString();
+    void setSeparator(const QString &separator);
 signals:
-    void strName(const QString &str);
+    void strMessage(loginData*);
+protected:
+    bool eventFilter(QObject *object, QEvent *event);
 private:
+    QSpinBox *m_SpinBox[4];
+    QLabel *m_Label[3];
+    QString m_Separator;        //四个数字之间的分隔符
+
     QLabel *lblname;
-    QLabel *lbluser;
-    QLabel *lblpass;
+    QLabel *lblip;
+//    QLabel *lbluser;
+//    QLabel *lblpass;
     QLineEdit *letname;
-    QLineEdit *letuser;
-    QLineEdit *letpass;
+//    QLineEdit *letuser;
+//    QLineEdit *letpass;
     QPushButton *btnok;
     QPushButton *btncancel;
    // QString str;
+
+    loginData data;
 public slots:
     void loginok();
     void logincancel();

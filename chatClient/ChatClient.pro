@@ -5,14 +5,17 @@ SOURCES=ChatClient.cpp	\
     ThRecv.cpp \
     ClientSocket.cpp \
     SendMessage.cpp \
-    LoginDialog.cpp
+    LoginDialog.cpp \
+    IpAddress.cpp
 
 HEADERS=ClientWindow.h \
     ChatException.h \
     ThRecv.h \
     ClientSocket.h \
     SendMessage.h \
-    LoginDialog.h
+    LoginDialog.h \
+    LoginData.h \
+    IpAddress.h
 
 CONFIG=release qt
 QT=core gui

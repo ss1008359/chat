@@ -14,7 +14,7 @@ int main(int args,char**argv)
     LoginDialog login;
     ClientWindow w;
 
-    QObject::connect(&login, SIGNAL(strName(const QString&)), &w, SLOT(setName(const QString&)));
+    QObject::connect(&login, SIGNAL(strMessage(loginData*)), &w, SLOT(setMessage(loginData*)));
 
     login.show();
     if (login.exec() == QDialog::Accepted) {

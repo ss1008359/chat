@@ -7,7 +7,9 @@ using namespace std;
 
 void ThAccept::init() throw(ChatException)
 {
-    sprintf(server.ip, "%s", "192.168.1.102");
+    const char *ip = strip.toLocal8Bit();
+    sprintf(server.ip, "%s", ip);
+    //sprintf(server.ip, "%s", "192.168.1.102");
 	server.port = 8888;
 	try {
 		server.initSocket();

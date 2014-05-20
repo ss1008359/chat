@@ -9,10 +9,12 @@ QString ClientWindow::getName(void)
     return this->strName;
 }
 
-void ClientWindow::setName(const QString& letname)
+void ClientWindow::setMessage(loginData* data)
 {
-    this->strName = letname;
+    this->strName = data->name;
+    this->strIp = data->ip;
     edtinfo->append(this->strName);
+    edtinfo->append(this->strIp);
 }
 
 void ClientWindow::onStart()
@@ -20,7 +22,8 @@ void ClientWindow::onStart()
     if(sendMessage.info != edtmsg) {
         try {
             //初始化socket
-            sprintf(client.ip, "%s", "192.168.1.102");
+            const char *ip = strIp.toLocal8Bit();
+            sprintf(client.ip, "%s", ip);
             client.port = 8888;
             client.initSocket();
             //发送信息

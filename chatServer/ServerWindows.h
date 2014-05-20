@@ -13,6 +13,7 @@
 #include "ThAccept.h"
 #include <list>
 #include "ThClient.h"
+#include "IpAddress.h"
 
 using namespace std;
 
@@ -37,6 +38,7 @@ private:
 public:
 	ServerWindows(QWidget *parent = NULL);
 public slots:
+    void getIp(const QString&);
 	void onStart();
 	void onExit();
 };

@@ -32,14 +32,14 @@ static const uint qt_meta_data_ClientWindow[] = {
  // slots: signature, parameters, type, tag, flags
       14,   13,   13,   13, 0x0a,
       24,   13,   13,   13, 0x0a,
-      41,   33,   13,   13, 0x0a,
+      33,   13,   13,   13, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_ClientWindow[] = {
     "ClientWindow\0\0onStart()\0onExit()\0"
-    "letname\0setName(QString)\0"
+    "setMessage(loginData*)\0"
 };
 
 void ClientWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -50,7 +50,7 @@ void ClientWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         switch (_id) {
         case 0: _t->onStart(); break;
         case 1: _t->onExit(); break;
-        case 2: _t->setName((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 2: _t->setMessage((*reinterpret_cast< loginData*(*)>(_a[1]))); break;
         default: ;
         }
     }

@@ -15,6 +15,8 @@
 #include "SendMessage.h"
 #include "ThRecv.h"
 #include "ClientSocket.h"
+#include "LoginData.h"
+
 class ClientWindow : public QMainWindow
 {
 Q_OBJECT
@@ -33,6 +35,7 @@ private:
 
     //接受登录信息
     QString strName;
+    QString strIp;
 
     ClientSocket client;
     SendMessage  sendMessage;
@@ -44,7 +47,7 @@ public:
 public slots:
     void onStart();
     void onExit();
-    void setName(const QString& letname);
+    void setMessage(loginData*);
 
 };
 #endif

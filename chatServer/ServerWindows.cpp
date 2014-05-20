@@ -1,19 +1,29 @@
 #include "ServerWindows.h"
+#include "ChatException.h"
 #include <QColor>
 #include <QMessageBox>
 #include <QCoreApplication>
-#include "ChatException.h"
 
 list<ThClient*> ServerWindows::allUsers;
+
+void ServerWindows::getIp(const QString &str)
+{
+    thAccept.strip = str;
+}
 
 void ServerWindows::onStart()
 {
 //	QMessageBox::information(this, tr("提示"), tr("响应"));
+
     if(thAccept.info != info) {
         try {
             thAccept.init();
             thAccept.info = info;
             info->setTextColor(QColor(0, 255, 0));
+            /*
+            info->append(thAccept.strip);
+            info->append(tr(thAccept.server.ip));
+            */
             info->append(tr("服务器启动成功!"));
             connect(&thAccept, SIGNAL(sigInfo(const QString&)),
                     info, SLOT(append(const QString&)));
