@@ -15,7 +15,8 @@ public:
 	int fd;
     struct sockaddr_in addr;
     int length;
-    char name[256];
+    QString name;
+    //char name[256];
 public:
 	void run();		//接收客户收据然后广播
 public: signals:

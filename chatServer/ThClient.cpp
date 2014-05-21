@@ -1,9 +1,11 @@
 #include "ThClient.h"
 #include <unistd.h>
 #include <sys/socket.h>
+#include <cstdio>
 #include <cstring>
 #include <cstdlib>
 #include <list>
+#include <string>
 #include <QString>
 #include "ServerWindows.h"
 
@@ -34,16 +36,25 @@ void ThClient::run()
                         ServerWindows::allUsers.begin();
                 while (iter != ServerWindows::allUsers.end()) {
                     char ad[20];
+                    char numPort[20];
                     memset(ad, 0, sizeof(ad));
-                   // addr = (*iter)->addr;
+                    memset(numPort, 0, sizeof(numPort));
+//                    addr = (*iter)->addr;
                     inet_ntop(AF_INET, &(*iter)->addr.sin_addr, ad, sizeof(ad));
-                    alluser += (*iter)->name;
-                    alluser += "(";
-                    alluser += ad;
-                    alluser += ")\n";
+                    int port = ntohs((*iter)->addr.sin_port);
+//                    printf("prot = %d", port);
+                    sprintf(numPort, "%d", port);
+//                    printf("numPort = %s", numPort);
+                    alluser += (*iter)->name + "(" + ad + ":" + numPort + ")" + "\n";
+//                    alluser += (*iter)->name;
+//                    alluser += "(";
+//                    alluser += ad;
+//                    alluser += ")\n";
                     ++iter;
                 }
-                const char *all = alluser.toLocal8Bit();
+//                const char *all = alluser.toLocal8Bit();
+                string s = alluser.toStdString();
+                const char *all = s.c_str();
                 memcpy(&msgOlineUser.msgChat, all, sizeof(msgOlineUser.msgChat));
                 send(fd, &msgOlineUser, sizeof(msgOlineUser), 0);
             }
@@ -70,8 +81,8 @@ void ThClient::run()
                         ServerWindows::allUsers.begin();
                 while (iter != ServerWindows::allUsers.end()) {
                     if (fd == (*iter)->fd) {
-                        memcpy((*iter)->name, msg.msgName, sizeof((*iter)->name));
-                        //(*iter)->name = msg.msgName;
+                        //memcpy((*iter)->name, msg.msgName, sizeof((*iter)->name));
+                        (*iter)->name = msg.msgName;
                     }
                     ++iter;
                 }
