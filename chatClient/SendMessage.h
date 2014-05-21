@@ -18,6 +18,7 @@ public:
     void init() throw (ChatException);
     void toMsgName();
     void toMsgUser();
+    void toMsgPort();
 public slots:
     void toMsgChat();
 private:

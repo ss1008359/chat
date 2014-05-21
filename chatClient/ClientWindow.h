@@ -1,5 +1,6 @@
 #ifndef CLIENT_WINDOW_H
 #define CLIENT_WINDOW_H
+
 #include <QMainWindow>
 #include <QWidget>
 #include <QTextEdit>
@@ -17,6 +18,11 @@
 #include "ClientSocket.h"
 #include "LoginData.h"
 #include "ConnectData.h"
+#include "ThPrivateChat.h"
+#include "PrivateChatWindow.h"
+#include "IpAddress.h"
+#include "ClientServerSocket.h"
+#include "ThClientAccept.h"
 
 class ClientWindow : public QMainWindow
 {
@@ -33,15 +39,23 @@ private:
     QMenu *chatMenu;
     QAction *actStart;
     QAction *actShowOnlineUser;
+    QAction *actPrivateChat;
+    QAction *actClientServer;
     QAction *actExit;
 
     //接受登录信息
     QString strName;
     QString strIp;
 
+    struct sockaddr_in localAddr;
+
     ClientSocket client;
     SendMessage  sendMessage;
     ThRecv thRecv;
+    ThClientAccept thClientAccept;
+//    ThPrivateChat thPrivateChat;
+    IpAddressWidget *ipaw;
+    PrivateChatWindow *prw;
 public:
 	ClientWindow(QWidget *p=NULL);
     void keyPressEvent( QKeyEvent * e );
@@ -49,8 +63,10 @@ public:
 public slots:
     void onStart();
     void onShowUesr();
+    void onPrivateChat();
+    void onClientServer();
     void onExit();
     void setMessage(loginData*);
-
 };
+
 #endif

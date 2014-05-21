@@ -1,14 +1,14 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'IpAddress.h'
+** Meta object code from reading C++ file 'ThClientAccept.h'
 **
 ** Created by: The Qt Meta Object Compiler version 63 (Qt 4.8.6)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "IpAddress.h"
+#include "ThClientAccept.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'IpAddress.h' doesn't include <QObject>."
+#error "The header file 'ThClientAccept.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 63
 #error "This file was generated using the moc from 4.8.6. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -16,13 +16,13 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-static const uint qt_meta_data_IpAddressWidget[] = {
+static const uint qt_meta_data_ThClientAccept[] = {
 
  // content:
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       1,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -30,73 +30,68 @@ static const uint qt_meta_data_IpAddressWidget[] = {
        1,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
-      17,   16,   16,   16, 0x05,
-
- // slots: signature, parameters, type, tag, flags
-      40,   16,   16,   16, 0x0a,
+      16,   15,   15,   15, 0x05,
 
        0        // eod
 };
 
-static const char qt_meta_stringdata_IpAddressWidget[] = {
-    "IpAddressWidget\0\0strMessage(loginData*)\0"
-    "okButton()\0"
+static const char qt_meta_stringdata_ThClientAccept[] = {
+    "ThClientAccept\0\0sigInfo(QString)\0"
 };
 
-void IpAddressWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void ThClientAccept::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         Q_ASSERT(staticMetaObject.cast(_o));
-        IpAddressWidget *_t = static_cast<IpAddressWidget *>(_o);
+        ThClientAccept *_t = static_cast<ThClientAccept *>(_o);
         switch (_id) {
-        case 0: _t->strMessage((*reinterpret_cast< loginData*(*)>(_a[1]))); break;
-        case 1: _t->okButton(); break;
+        case 0: _t->sigInfo((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         default: ;
         }
     }
 }
 
-const QMetaObjectExtraData IpAddressWidget::staticMetaObjectExtraData = {
+const QMetaObjectExtraData ThClientAccept::staticMetaObjectExtraData = {
     0,  qt_static_metacall 
 };
 
-const QMetaObject IpAddressWidget::staticMetaObject = {
-    { &QDialog::staticMetaObject, qt_meta_stringdata_IpAddressWidget,
-      qt_meta_data_IpAddressWidget, &staticMetaObjectExtraData }
+const QMetaObject ThClientAccept::staticMetaObject = {
+    { &QThread::staticMetaObject, qt_meta_stringdata_ThClientAccept,
+      qt_meta_data_ThClientAccept, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &IpAddressWidget::getStaticMetaObject() { return staticMetaObject; }
+const QMetaObject &ThClientAccept::getStaticMetaObject() { return staticMetaObject; }
 #endif //Q_NO_DATA_RELOCATION
 
-const QMetaObject *IpAddressWidget::metaObject() const
+const QMetaObject *ThClientAccept::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
-void *IpAddressWidget::qt_metacast(const char *_clname)
+void *ThClientAccept::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_IpAddressWidget))
-        return static_cast<void*>(const_cast< IpAddressWidget*>(this));
-    return QDialog::qt_metacast(_clname);
+    if (!strcmp(_clname, qt_meta_stringdata_ThClientAccept))
+        return static_cast<void*>(const_cast< ThClientAccept*>(this));
+    return QThread::qt_metacast(_clname);
 }
 
-int IpAddressWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int ThClientAccept::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QDialog::qt_metacall(_c, _id, _a);
+    _id = QThread::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 1)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 1;
     }
     return _id;
 }
 
 // SIGNAL 0
-void IpAddressWidget::strMessage(loginData * _t1)
+void ThClientAccept::sigInfo(const QString & _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

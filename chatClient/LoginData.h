@@ -7,6 +7,7 @@
 typedef struct login_data {
     QString name;
     QString ip;
+    int port;
 }loginData;
 
 #endif // LOGINDATA_H

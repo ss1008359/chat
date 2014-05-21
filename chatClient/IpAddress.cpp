@@ -17,6 +17,10 @@ IpAddressWidget::IpAddressWidget(QWidget *parent)
         m_SpinBox[i]->setFixedWidth(40);
         m_SpinBox[i]->installEventFilter(this);
     }
+
+    m_LineEdit = new QLineEdit(this);
+    m_LineEdit->setFixedWidth(80);
+
     //四个输入框之间的分隔符
     for(int i=0; i<3; i++)
     {
@@ -24,15 +28,19 @@ IpAddressWidget::IpAddressWidget(QWidget *parent)
         m_Label[i]->setFixedWidth(10);
         m_Label[i]->setAlignment(Qt::AlignCenter);
     }
+    m_Label[3] = new QLabel(":", this);
+    m_Label[3]->setFixedWidth(10);
+    m_Label[3]->setAlignment(Qt::AlignCenter);
 
     QHBoxLayout *hlay = new QHBoxLayout;
     //hlay->setSpacing(0);
-    for(int i=0; i<3; i++)
+    for(int i=0; i<4; i++)
     {
         hlay->addWidget(m_SpinBox[i]);
         hlay->addWidget(m_Label[i]);
     }
-    hlay->addWidget(m_SpinBox[3]);
+    hlay->addWidget(m_LineEdit);
+
     setLayout(hlay);
 
     btnok = new QPushButton(tr("OK"), this);
@@ -43,7 +51,7 @@ IpAddressWidget::IpAddressWidget(QWidget *parent)
     */
     btnok->move(100, 100);
     connect(btnok, SIGNAL(clicked()), this, SLOT(okButton()));
-    setWindowTitle(tr("服务器ip地址设置"));
+    setWindowTitle(tr("私聊用户ip地址设置"));
     this->resize(300, 150);
     this->move((1366-300)/2, (768-150)/2);
 }
@@ -112,12 +120,18 @@ bool IpAddressWidget::eventFilter(QObject *object, QEvent *event)
 void IpAddressWidget::okButton()
 {
     QString ipAddress = this->getIpAddressString();
+    QString port = m_LineEdit->text();
     if( ipAddress.isEmpty() ) {
         QMessageBox::warning( this, tr("Error"), tr("非法ip地址") );
     }
+    else if (port.isEmpty()) {
+        QMessageBox::warning( this, tr("Error"), tr("非法端口号") );
+    }
     else {
         QMessageBox::information(this, tr("ip地址"), ipAddress);
-        emit strIp(ipAddress);
+        data.ip = ipAddress;
+        data.port = port.toInt();
+        emit strMessage(&data);
         accept();
     }
 }

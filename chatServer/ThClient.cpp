@@ -30,7 +30,7 @@ void ThClient::run()
             case MSG_SHOW_USER: {
                 msgData msgOlineUser;
                 memset(&msgOlineUser, 0, sizeof(msgOlineUser));
-                msgOlineUser.msgType = msg.msgType;
+                msgOlineUser.msgType = MSG_SHOW_CHAT;
                 QString alluser;
                 list<ThClient*>::iterator iter =
                         ServerWindows::allUsers.begin();
@@ -86,6 +86,23 @@ void ThClient::run()
                     }
                     ++iter;
                 }
+            }
+                break;
+
+            case MSG_SHOW_LOCALADDR: {
+                list<ThClient*>::iterator iter =
+                        ServerWindows::allUsers.begin();
+                while (iter != ServerWindows::allUsers.end()) {
+                    if (fd == (*iter)->fd) {
+                        msg.localAddr = (*iter)->addr;
+//                        printf("localport=%d", ntohs(msg.localAddr.sin_port));
+//                        printf("iterport=%d", ntohs((*iter)->addr.sin_port));
+                        break;
+                    }
+                    ++iter;
+                }
+
+                send(fd, &msg, sizeof(msg), 0);
             }
                 break;
 

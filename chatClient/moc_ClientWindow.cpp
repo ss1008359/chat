@@ -22,7 +22,7 @@ static const uint qt_meta_data_ClientWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -33,13 +33,16 @@ static const uint qt_meta_data_ClientWindow[] = {
       14,   13,   13,   13, 0x0a,
       24,   13,   13,   13, 0x0a,
       37,   13,   13,   13, 0x0a,
-      46,   13,   13,   13, 0x0a,
+      53,   13,   13,   13, 0x0a,
+      70,   13,   13,   13, 0x0a,
+      79,   13,   13,   13, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_ClientWindow[] = {
     "ClientWindow\0\0onStart()\0onShowUesr()\0"
+    "onPrivateChat()\0onClientServer()\0"
     "onExit()\0setMessage(loginData*)\0"
 };
 
@@ -51,8 +54,10 @@ void ClientWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         switch (_id) {
         case 0: _t->onStart(); break;
         case 1: _t->onShowUesr(); break;
-        case 2: _t->onExit(); break;
-        case 3: _t->setMessage((*reinterpret_cast< loginData*(*)>(_a[1]))); break;
+        case 2: _t->onPrivateChat(); break;
+        case 3: _t->onClientServer(); break;
+        case 4: _t->onExit(); break;
+        case 5: _t->setMessage((*reinterpret_cast< loginData*(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -90,9 +95,9 @@ int ClientWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 6;
     }
     return _id;
 }

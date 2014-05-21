@@ -10,6 +10,7 @@ class ThRecv: public QThread {
 Q_OBJECT
 public:
     ClientSocket cli;
+    struct sockaddr_in localAddr;
     void init() throw (ChatException);
     void run();
 public: signals:

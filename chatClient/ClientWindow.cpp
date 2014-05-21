@@ -48,6 +48,10 @@ void ClientWindow::onStart()
             connect(&thRecv, SIGNAL(sigInfo(const QString&)),
                     edtinfo, SLOT(append(const QString&)));
             thRecv.start();
+            sendMessage.toMsgPort();
+            sleep(1);   //延迟1秒等待服务器返回本机信息（有待改进）
+            localAddr = thRecv.localAddr;
+//            printf("localport=%d", ntohs(localAddr.sin_port));
             edtinfo->append(tr("接受信息线程启动"));
             edtinfo->append("=============================");
         }
@@ -60,6 +64,7 @@ void ClientWindow::onStart()
     }
 }
 
+//显示在线用户信息
 void ClientWindow::onShowUesr()
 {
     if (sendMessage.info != edtmsg) {
@@ -67,6 +72,41 @@ void ClientWindow::onShowUesr()
     }
     else {
         sendMessage.toMsgUser();
+    }
+}
+
+//创建私聊聊天窗口
+void ClientWindow::onPrivateChat()
+{
+    if (sendMessage.info != edtmsg) {
+        QMessageBox::warning( this, tr("Error"), tr("客户端未启动") );
+    }
+    else {
+        prw = new PrivateChatWindow;
+        ipaw = new IpAddressWidget;
+        connect(ipaw, SIGNAL(strMessage(loginData*)), prw, SLOT(setMessage(loginData*)));
+        ipaw->show();
+        if (ipaw->exec() == QDialog::Accepted) {
+            //prw->setName(this->getName());
+            prw->show();
+        }
+    }
+}
+
+void ClientWindow::onClientServer()
+{
+    if (sendMessage.info != edtmsg) {
+        QMessageBox::warning( this, tr("Error"), tr("客户端未启动") );
+    }
+    else {
+        try {
+            thClientAccept.server.addr = localAddr;
+            thClientAccept.info = edtinfo;
+            thClientAccept.init();
+        }
+        catch(ChatException e) {
+            edtinfo->append(tr(e.what()));
+        }
     }
 }
 
@@ -116,11 +156,17 @@ ClientWindow::ClientWindow(QWidget*p)
     chatMenu = new QMenu(tr("客户端"), bar);
     actStart = new QAction(tr("启动"), chatMenu);
     actShowOnlineUser = new QAction(tr("显示在线用户"), chatMenu);
+    actPrivateChat = new QAction(tr("私聊"), chatMenu);
+    actClientServer = new QAction(tr("客户端服务器启动"), chatMenu);
     actExit = new QAction(tr("结束"), chatMenu);
 
     chatMenu->addAction(actStart);
     chatMenu->addSeparator();
     chatMenu->addAction(actShowOnlineUser);
+    chatMenu->addSeparator();
+    chatMenu->addAction(actPrivateChat);
+    chatMenu->addSeparator();
+    chatMenu->addAction(actClientServer);
     chatMenu->addSeparator();
     chatMenu->addAction(actExit);
 
@@ -140,6 +186,10 @@ ClientWindow::ClientWindow(QWidget*p)
             this, SLOT(onStart()));
     connect(actShowOnlineUser, SIGNAL(triggered()),
             this, SLOT(onShowUesr()));
+    connect(actPrivateChat, SIGNAL(triggered()),
+            this, SLOT(onPrivateChat()));
+    connect(actClientServer, SIGNAL(triggered()),
+            this, SLOT(onClientServer()));
     connect(actExit, SIGNAL(triggered()),
             this, SLOT(onExit()));
 

@@ -39,10 +39,30 @@ void ThRecv::run()
                 //stop = true;
             }
             else {
-                char buf[2048];
-                memset(buf, 0, sizeof(buf));
-                memcpy(buf, msg.msgChat, sizeof(buf) - 1);
-                emit sigInfo(tr(buf));
+                switch(msg.msgType) {
+                    case MSG_SHOW_USER:
+                        break;
+
+                    case MSG_SHOW_CHAT: {
+                        char buf[2048];
+                        memset(buf, 0, sizeof(buf));
+                        memcpy(buf, msg.msgChat, sizeof(buf) - 1);
+                        emit sigInfo(tr(buf));
+                    }
+                        break;
+
+                    case MSG_SHOW_NAME:
+                        break;
+
+                    case MSG_SHOW_LOCALADDR: {
+                        localAddr = msg.localAddr;
+//                        printf("localport=%d", ntohs(localAddr.sin_port));
+                    }
+                        break;
+
+                    default:
+                        break;
+                }
             }
         }
         catch(ChatException e) {

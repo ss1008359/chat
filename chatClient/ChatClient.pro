@@ -6,7 +6,11 @@ SOURCES=ChatClient.cpp	\
     ClientSocket.cpp \
     SendMessage.cpp \
     LoginDialog.cpp \
-    IpAddress.cpp
+    IpAddress.cpp \
+    ThPrivateChat.cpp \
+    PrivateChatWindow.cpp \
+    ClientServerSocket.cpp \
+    ThClientAccept.cpp
 
 HEADERS=ClientWindow.h \
     ChatException.h \
@@ -16,7 +20,11 @@ HEADERS=ClientWindow.h \
     LoginDialog.h \
     LoginData.h \
     IpAddress.h \
-    ConnectData.h
+    ConnectData.h \
+    ThPrivateChat.h \
+    PrivateChatWindow.h \
+    ClientServerSocket.h \
+    ThClientAccept.h
 
 CONFIG=release qt
 QT=core gui

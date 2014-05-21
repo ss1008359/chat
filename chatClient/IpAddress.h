@@ -6,15 +6,19 @@
 #include <QSpinBox>
 #include <QLabel>
 #include <QPushButton>
+#include <QLineEdit>
+#include "LoginData.h"
 
 class IpAddressWidget : public QDialog
 {
     Q_OBJECT
 private:
     QSpinBox *m_SpinBox[4];
-    QLabel *m_Label[3];
+    QLabel *m_Label[4];
+    QLineEdit *m_LineEdit;
     QString m_Separator;        //四个数字之间的分隔符
     QPushButton *btnok;
+    loginData data;
 protected:
     bool eventFilter(QObject *object, QEvent *event);
 public:
@@ -23,7 +27,7 @@ public:
     QString getIpAddressString();
     void setSeparator(const QString &separator);
 signals:
-    void strIp(const QString&);
+    void strMessage(loginData*);
 public slots:
     void okButton();
 };
