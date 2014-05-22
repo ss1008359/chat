@@ -18,6 +18,17 @@ void ClientWindow::setMessage(loginData* data)
     edtinfo->append(this->strIp);
 }
 
+void ClientWindow::oppositeUser()
+{
+    pipaw = new PrivateIpAddressWidget;
+    pipaw->show();
+    if (pipaw->exec() == QDialog::Accepted) {
+        data = pipaw->data;
+        printf("port = %d", data.port);
+    }
+    sendMessage.toMsgOppositeUser(&data);
+}
+
 void ClientWindow::onStart()
 {
     if(sendMessage.info != edtmsg) {
@@ -39,6 +50,8 @@ void ClientWindow::onStart()
             edtinfo->append(tr("客户端启动成功"));
             connect(btnsend, SIGNAL(clicked()),
                     &sendMessage, SLOT(toMsgChat()));
+            connect(btnprivatesend, SIGNAL(clicked()),
+                    this, SLOT(oppositeUser()));
             //接受信息线程
             thRecv.init();
             thRecv.cli.fd = client.fd;
@@ -136,6 +149,7 @@ ClientWindow::ClientWindow(QWidget*p)
     edtinfo=new QTextEdit(center);
     edtmsg=new QLineEdit(center);
     btnsend=new QPushButton(tr("发送"),center);
+    btnprivatesend = new QPushButton(tr("发送私聊"));
     /*
     btnsend->setShortcut(QKeySequence::InsertParagraphSeparator);
     btnsend->setShortcut(Qt::Key_Enter);
@@ -150,6 +164,7 @@ ClientWindow::ClientWindow(QWidget*p)
 	
 	hlay->addWidget(edtmsg);
 	hlay->addWidget(btnsend);
+    hlay->addWidget(btnprivatesend);
 
     //初始化菜单
     bar = new QMenuBar(this);

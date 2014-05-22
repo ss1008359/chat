@@ -60,6 +60,13 @@ void ThRecv::run()
                     }
                         break;
 
+                    case MSG_SHOW_PRIVATESERVER: {
+                        char buf[2048];
+                        memset(buf, 0, sizeof(buf));
+                        memcpy(buf, msg.msgChat, sizeof(buf) - 1);
+                        emit sigInfo(tr(buf));
+                    }
+                        break;
                     default:
                         break;
                 }

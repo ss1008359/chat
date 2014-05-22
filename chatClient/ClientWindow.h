@@ -21,8 +21,10 @@
 #include "ThPrivateChat.h"
 #include "PrivateChatWindow.h"
 #include "IpAddress.h"
+#include "PrivateIpAddress.h"
 #include "ClientServerSocket.h"
 #include "ThClientAccept.h"
+#include "LoginData.h"
 
 class ClientWindow : public QMainWindow
 {
@@ -32,6 +34,7 @@ private:
     QTextEdit *edtinfo;
 	QLineEdit *edtmsg;
 	QPushButton *btnsend;
+    QPushButton *btnprivatesend;
 	QHBoxLayout *hlay;
 	QVBoxLayout *vlay;
     //菜单栏
@@ -49,18 +52,21 @@ private:
 
     struct sockaddr_in localAddr;
 
+    loginData data;
     ClientSocket client;
     SendMessage  sendMessage;
     ThRecv thRecv;
     ThClientAccept thClientAccept;
 //    ThPrivateChat thPrivateChat;
     IpAddressWidget *ipaw;
+    PrivateIpAddressWidget *pipaw;
     PrivateChatWindow *prw;
 public:
 	ClientWindow(QWidget *p=NULL);
     void keyPressEvent( QKeyEvent * e );
     QString getName(void);
 public slots:
+    void oppositeUser();
     void onStart();
     void onShowUesr();
     void onPrivateChat();

@@ -106,6 +106,30 @@ void ThClient::run()
             }
                 break;
 
+            case MSG_SHOW_PRIVATESERVER: {
+                //发送消息，把接收数据显示到服务器主窗体
+                char buf[2048];
+                memset(buf, 0, sizeof(buf));
+                memcpy(buf, msg.msgChat, sizeof(buf) - 1);
+                emit sigInfo(tr(buf));
+
+                //发送给特定用户
+                int cfd = 0;
+                list<ThClient*>::iterator iter =
+                        ServerWindows::allUsers.begin();
+                while (iter != ServerWindows::allUsers.end()) {
+                        if (msg.oppositeAddr.sin_port == (*iter)->addr.sin_port) {
+                            cfd = (*iter)->fd;
+                            break;
+                        }
+                    ++iter;
+                }
+
+                send(fd, &msg, sizeof(msg), 0);
+                send(cfd, &msg, sizeof(msg), 0);
+            }
+                break;
+
             default:
                 break;
         }
