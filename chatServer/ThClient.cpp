@@ -118,15 +118,23 @@ void ThClient::run()
                 list<ThClient*>::iterator iter =
                         ServerWindows::allUsers.begin();
                 while (iter != ServerWindows::allUsers.end()) {
-                        if (msg.oppositeAddr.sin_port == (*iter)->addr.sin_port) {
+                        if (msg.oppositeAddr.sin_port == (*iter)->addr.sin_port
+                                && msg.oppositeAddr.sin_addr.s_addr == (*iter)->addr.sin_addr.s_addr) {
                             cfd = (*iter)->fd;
                             break;
                         }
                     ++iter;
                 }
 
-                send(fd, &msg, sizeof(msg), 0);
-                send(cfd, &msg, sizeof(msg), 0);
+                if (iter == ServerWindows::allUsers.end()) {
+                    memset(msg.msgChat, 0, sizeof(msg.msgChat));
+                    sprintf(msg.msgChat, "%s", "系统信息：\n私聊发送失败!");
+                    send(fd, &msg, sizeof(msg), 0);
+                }
+                else {
+                    send(fd, &msg, sizeof(msg), 0);
+                    send(cfd, &msg, sizeof(msg), 0);
+                }
             }
                 break;
 
