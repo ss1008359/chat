@@ -15,7 +15,7 @@ public:
     struct sockaddr_in addr;
 
     void initSocket() throw (ChatException);	//服务器初始化
-    int accept(struct sockaddr_in*, int*) throw (ChatException);		//接收客户连接
+    int accept() throw (ChatException);		//接收客户连接
 };
 
 #endif // CLIENTSERVERSOCKET_H

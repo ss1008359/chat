@@ -20,11 +20,13 @@
 #include "ConnectData.h"
 #include "ThPrivateChat.h"
 #include "PrivateChatWindow.h"
+#include "PrivateServerWindow.h"
 #include "IpAddress.h"
 #include "PrivateIpAddress.h"
 #include "ClientServerSocket.h"
 #include "ThClientAccept.h"
 #include "LoginData.h"
+#include "JudgeDialog.h"
 
 class ClientWindow : public QMainWindow
 {
@@ -43,7 +45,7 @@ private:
     QAction *actStart;
     QAction *actShowOnlineUser;
     QAction *actPrivateChat;
-    QAction *actClientServer;
+    QAction *actRealIp;
     QAction *actExit;
 
     //接受登录信息
@@ -58,9 +60,12 @@ private:
     ThRecv thRecv;
     ThClientAccept thClientAccept;
 //    ThPrivateChat thPrivateChat;
+    JudgeDialog *jd;
     IpAddressWidget *ipaw;
+    PrivateIpAddressWidget *getrealip;
     PrivateIpAddressWidget *pipaw;
     PrivateChatWindow *prw;
+    PrivateServerWindow *psw;
 public:
 	ClientWindow(QWidget *p=NULL);
     void keyPressEvent( QKeyEvent * e );
@@ -69,10 +74,11 @@ public slots:
     void oppositeUser();
     void onStart();
     void onShowUesr();
-    void onPrivateChat();
-    void onClientServer();
+    void onPrivateChat(struct sockaddr_in*);
+    void onRealIp();
     void onExit();
     void setMessage(loginData*);
+    void bulidServer(struct sockaddr_in*);
 };
 
 #endif

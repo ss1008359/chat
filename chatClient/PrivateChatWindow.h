@@ -13,6 +13,15 @@
 #include <QAction>
 #include <QKeyEvent>
 #include <QString>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <cstdio>
+#include "PrivateConnectData.h"
+#include "PrivateSendMessage.h"
+#include "ThPrivateRecv.h"
+#include "PrivateClientSocket.h"
 #include "LoginData.h"
 
 class PrivateChatWindow : public QMainWindow
@@ -35,23 +44,24 @@ private:
 
     //接受登录信息
     QString strName;
-    QString strIp;
-    int port;
 
-//    ClientSocket client;
-//    SendMessage  sendMessage;
-//    ThRecv thRecv;
+    PrivateClientSocket client;
+    PrivateSendMessage  privateSendMessage;
+    ThPrivateRecv thPrivateRecv;
+public:
+    struct sockaddr_in realaddr;
 public:
     PrivateChatWindow(QWidget *p=NULL);
+    void initClient();
     void setName(QString&);
-//    void keyPressEvent( QKeyEvent * e );
+    void keyPressEvent( QKeyEvent * e );
 //    QString getName(void);
 public slots:
 //    void onStart();
 //    void onShowUesr();
 //    void onPrivateChat();
 //    void onExit();
-    void setMessage(loginData*);
+//    void setMessage(loginData*);
 };
 
 #endif // PRIVATECHATWINDOW_H

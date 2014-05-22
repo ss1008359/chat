@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <string>
 #include <sys/socket.h>
 
 using namespace std;
@@ -57,6 +58,37 @@ void ThRecv::run()
                     case MSG_SHOW_LOCALADDR: {
                         localAddr = msg.localAddr;
 //                        printf("localport=%d", ntohs(localAddr.sin_port));
+                    }
+                        break;
+
+                    case MSG_SHOW_REQUESTUSER: {
+                        ownAddr = msg.oppositeAddr;
+                        emit request(&msg.localAddr);
+                    }
+                        break;
+
+                    case MSG_SHOW_RESPONSEUSER: {
+                    printf("recvresponse\n");
+                    printf("port = %d\n", ntohs(msg.realAddr.sin_port));
+                        if (msg.result) {
+                            char ad[20];
+//                            char numPort[20];
+                            memset(ad, 0, sizeof(ad));
+//                            memset(numPort, 0, sizeof(numPort));
+                            inet_ntop(AF_INET, &msg.realAddr.sin_addr, ad, sizeof(ad));
+                            printf("ip = %s", ad);
+//                            int port = ntohs(msg.realAddr.sin_port);
+//                            sprintf(numPort, "%d", port);
+//                            QString name = msg.msgName;
+//                            QString realStr = name + "(" + ad + ":" + numPort + ")";
+//                            string s = realStr.toStdString();
+//                            const char *str = s.c_str();
+//                            emit sigInfo(tr(str));
+                            emit response(&msg.realAddr);
+                        }
+                        else {
+                            emit sigInfo(tr("对方拒绝私聊"));
+                        }
                     }
                         break;
 

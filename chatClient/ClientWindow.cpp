@@ -10,6 +10,27 @@ QString ClientWindow::getName(void)
     return this->strName;
 }
 
+//创建私聊服务器
+void ClientWindow::bulidServer(struct sockaddr_in* addr)
+{
+    jd = new JudgeDialog;
+    psw = new PrivateServerWindow;
+
+    connect(jd, SIGNAL(sendResult(bool)), psw, SLOT(getResult(bool)));
+
+    jd->show();
+    if (jd->exec() == QDialog::Accepted) {
+        psw->ownAddr = thRecv.ownAddr;
+        psw->strName = strName;
+        psw->buildServer();
+        psw->show();
+    }
+
+    struct sockaddr_in real = psw->thAccept.server.addr;
+     printf("port = %d", ntohs(real.sin_port));
+    sendMessage.toMsgResponseUser(psw->result, *addr, real);
+}
+
 void ClientWindow::setMessage(loginData* data)
 {
     this->strName = data->name;
@@ -24,11 +45,12 @@ void ClientWindow::oppositeUser()
     pipaw->show();
     if (pipaw->exec() == QDialog::Accepted) {
         data = pipaw->data;
-        printf("port = %d", data.port);
+//        printf("port = %d", data.port);
     }
     sendMessage.toMsgOppositeUser(&data);
 }
 
+//启动群聊客户端
 void ClientWindow::onStart()
 {
     if(sendMessage.info != edtmsg) {
@@ -60,10 +82,13 @@ void ClientWindow::onStart()
 
             connect(&thRecv, SIGNAL(sigInfo(const QString&)),
                     edtinfo, SLOT(append(const QString&)));
+            connect(&thRecv, SIGNAL(request(sockaddr_in*)), this, SLOT(bulidServer(sockaddr_in*)));
+            connect(&thRecv, SIGNAL(response(sockaddr_in*)), this, SLOT(onPrivateChat(sockaddr_in*)));
             thRecv.start();
             sendMessage.toMsgPort();
             sleep(1);   //延迟1秒等待服务器返回本机信息（有待改进）
             localAddr = thRecv.localAddr;
+            sendMessage.ownaddr = localAddr;
 //            printf("localport=%d", ntohs(localAddr.sin_port));
             edtinfo->append(tr("接受信息线程启动"));
             edtinfo->append("=============================");
@@ -89,37 +114,40 @@ void ClientWindow::onShowUesr()
 }
 
 //创建私聊聊天窗口
-void ClientWindow::onPrivateChat()
+void ClientWindow::onPrivateChat(struct sockaddr_in *realaddr)
 {
     if (sendMessage.info != edtmsg) {
         QMessageBox::warning( this, tr("Error"), tr("客户端未启动") );
     }
     else {
         prw = new PrivateChatWindow;
-        ipaw = new IpAddressWidget;
-        connect(ipaw, SIGNAL(strMessage(loginData*)), prw, SLOT(setMessage(loginData*)));
-        ipaw->show();
-        if (ipaw->exec() == QDialog::Accepted) {
-            //prw->setName(this->getName());
-            prw->show();
-        }
+//        ipaw = new IpAddressWidget;
+//        connect(ipaw, SIGNAL(strMessage(loginData*)), prw, SLOT(setMessage(loginData*)));
+//        ipaw->show();
+//        if (ipaw->exec() == QDialog::Accepted) {
+        prw->setName(strName);
+        printf("port = %d\n", ntohs(realaddr->sin_port));
+        prw->realaddr = *realaddr;
+        prw->initClient();
+        prw->show();
+//        }
     }
 }
 
-void ClientWindow::onClientServer()
+void ClientWindow::onRealIp()
 {
     if (sendMessage.info != edtmsg) {
         QMessageBox::warning( this, tr("Error"), tr("客户端未启动") );
     }
     else {
-        try {
-            thClientAccept.server.addr = localAddr;
-            thClientAccept.info = edtinfo;
-            thClientAccept.init();
+        getrealip = new PrivateIpAddressWidget;
+        getrealip->show();
+
+        if (getrealip->exec() == QDialog::Accepted) {
+            data = getrealip->data;
         }
-        catch(ChatException e) {
-            edtinfo->append(tr(e.what()));
-        }
+
+        sendMessage.toMsgRequestUser(&data);
     }
 }
 
@@ -172,7 +200,7 @@ ClientWindow::ClientWindow(QWidget*p)
     actStart = new QAction(tr("启动"), chatMenu);
     actShowOnlineUser = new QAction(tr("显示在线用户"), chatMenu);
     actPrivateChat = new QAction(tr("私聊"), chatMenu);
-    actClientServer = new QAction(tr("客户端服务器启动"), chatMenu);
+    actRealIp = new QAction(tr("获取ip"), chatMenu);
     actExit = new QAction(tr("结束"), chatMenu);
 
     chatMenu->addAction(actStart);
@@ -181,7 +209,7 @@ ClientWindow::ClientWindow(QWidget*p)
     chatMenu->addSeparator();
     chatMenu->addAction(actPrivateChat);
     chatMenu->addSeparator();
-    chatMenu->addAction(actClientServer);
+    chatMenu->addAction(actRealIp);
     chatMenu->addSeparator();
     chatMenu->addAction(actExit);
 
@@ -201,10 +229,10 @@ ClientWindow::ClientWindow(QWidget*p)
             this, SLOT(onStart()));
     connect(actShowOnlineUser, SIGNAL(triggered()),
             this, SLOT(onShowUesr()));
-    connect(actPrivateChat, SIGNAL(triggered()),
-            this, SLOT(onPrivateChat()));
-    connect(actClientServer, SIGNAL(triggered()),
-            this, SLOT(onClientServer()));
+//    connect(actPrivateChat, SIGNAL(triggered()),
+//            this, SLOT(onPrivateChat()));
+    connect(actRealIp, SIGNAL(triggered()),
+            this, SLOT(onRealIp()));
     connect(actExit, SIGNAL(triggered()),
             this, SLOT(onExit()));
 

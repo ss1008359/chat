@@ -28,7 +28,6 @@ void ServerSocket::initSocket() throw (ChatException)
 		close(fd);
 		throw ChatException("listen错误");
 	}
-
 }
 
 int ServerSocket::accept(struct sockaddr_in *addr, int *length) throw (ChatException)

@@ -24,7 +24,8 @@ void ThClient::run()
 			ServerWindows::allUsers.remove(this);
 			close(fd);
 			break;
-		}
+        }
+//        printf("msg.msgType = %d\n", msg.msgType);
         switch(msg.msgType) {
 
             case MSG_SHOW_USER: {
@@ -103,6 +104,54 @@ void ThClient::run()
                 }
 
                 send(fd, &msg, sizeof(msg), 0);
+            }
+                break;
+
+            case MSG_SHOW_REQUESTUSER: {
+                int cfd = 0;
+                list<ThClient*>::iterator iter =
+                        ServerWindows::allUsers.begin();
+                while (iter != ServerWindows::allUsers.end()) {
+                        if (msg.oppositeAddr.sin_port == (*iter)->addr.sin_port
+                                && msg.oppositeAddr.sin_addr.s_addr == (*iter)->addr.sin_addr.s_addr) {
+                            cfd = (*iter)->fd;
+                            break;
+                        }
+                    ++iter;
+                }
+
+                if (iter == ServerWindows::allUsers.end()) {
+                    memset(msg.msgChat, 0, sizeof(msg.msgChat));
+                    sprintf(msg.msgChat, "%s", "系统信息：\n请求发送失败!");
+                    send(fd, &msg, sizeof(msg), 0);
+                }
+                else {
+                    send(cfd, &msg, sizeof(msg), 0);
+                }
+            }
+                break;
+
+            case MSG_SHOW_RESPONSEUSER: {
+                int cfd = 0;
+                list<ThClient*>::iterator iter =
+                        ServerWindows::allUsers.begin();
+                while (iter != ServerWindows::allUsers.end()) {
+                        if (msg.oppositeAddr.sin_port == (*iter)->addr.sin_port
+                                && msg.oppositeAddr.sin_addr.s_addr == (*iter)->addr.sin_addr.s_addr) {
+                            cfd = (*iter)->fd;
+                            break;
+                        }
+                    ++iter;
+                }
+
+                if (iter == ServerWindows::allUsers.end()) {
+                    memset(msg.msgChat, 0, sizeof(msg.msgChat));
+                    sprintf(msg.msgChat, "%s", "系统信息：\n回复发送失败!");
+                    send(fd, &msg, sizeof(msg), 0);
+                }
+                else {
+                    send(cfd, &msg, sizeof(msg), 0);
+                }
             }
                 break;
 

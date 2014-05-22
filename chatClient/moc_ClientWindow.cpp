@@ -22,7 +22,7 @@ static const uint qt_meta_data_ClientWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -34,18 +34,19 @@ static const uint qt_meta_data_ClientWindow[] = {
       29,   13,   13,   13, 0x0a,
       39,   13,   13,   13, 0x0a,
       52,   13,   13,   13, 0x0a,
-      68,   13,   13,   13, 0x0a,
-      85,   13,   13,   13, 0x0a,
-      94,   13,   13,   13, 0x0a,
+      80,   13,   13,   13, 0x0a,
+      91,   13,   13,   13, 0x0a,
+     100,   13,   13,   13, 0x0a,
+     123,   13,   13,   13, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_ClientWindow[] = {
     "ClientWindow\0\0oppositeUser()\0onStart()\0"
-    "onShowUesr()\0onPrivateChat()\0"
-    "onClientServer()\0onExit()\0"
-    "setMessage(loginData*)\0"
+    "onShowUesr()\0onPrivateChat(sockaddr_in*)\0"
+    "onRealIp()\0onExit()\0setMessage(loginData*)\0"
+    "bulidServer(sockaddr_in*)\0"
 };
 
 void ClientWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -57,10 +58,11 @@ void ClientWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 0: _t->oppositeUser(); break;
         case 1: _t->onStart(); break;
         case 2: _t->onShowUesr(); break;
-        case 3: _t->onPrivateChat(); break;
-        case 4: _t->onClientServer(); break;
+        case 3: _t->onPrivateChat((*reinterpret_cast< sockaddr_in*(*)>(_a[1]))); break;
+        case 4: _t->onRealIp(); break;
         case 5: _t->onExit(); break;
         case 6: _t->setMessage((*reinterpret_cast< loginData*(*)>(_a[1]))); break;
+        case 7: _t->bulidServer((*reinterpret_cast< sockaddr_in*(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -98,9 +100,9 @@ int ClientWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

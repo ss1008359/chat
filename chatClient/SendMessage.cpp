@@ -45,6 +45,22 @@ void SendMessage::toMsgPort()
     toSend(MSG_SHOW_LOCALADDR);
 }
 
+void SendMessage::toMsgRequestUser(loginData* data)
+{
+    this->data.ip = data->ip;
+    this->data.port = data->port;
+    toSend(MSG_SHOW_REQUESTUSER);
+}
+
+void SendMessage::toMsgResponseUser(bool re, struct sockaddr_in opposite, struct sockaddr_in real)
+{
+    printf("sendresponse");
+    result = re;
+    oppositeaddr = opposite;
+    realaddr = real;
+    toSend(MSG_SHOW_RESPONSEUSER);
+}
+
 void SendMessage::toMsgOppositeUser(loginData* data)
 {
     this->data.ip = data->ip;
@@ -56,6 +72,7 @@ void SendMessage::toSend(int msgType)	//发送信息
 {
     msgData msg;
     memset(&msg, 0, sizeof(msg));
+//    printf("msg.msgType = %d\n", msgType);
     switch(msgType) {
 
         //显示在线用户
@@ -92,6 +109,34 @@ void SendMessage::toSend(int msgType)	//发送信息
         //获得本机端口号
         case MSG_SHOW_LOCALADDR: {
             msg.msgType = msgType;
+        }
+            break;
+
+        //P2P模式私聊请求连接
+        case MSG_SHOW_REQUESTUSER: {
+            msg.localAddr = ownaddr;
+            msg.oppositeAddr.sin_family = AF_INET;
+            msg.oppositeAddr.sin_port = htons(data.port);
+            const char *cip = data.ip.toLocal8Bit();
+            char ip[30];
+            memset(ip, 0, sizeof(ip));
+            sprintf(ip, "%s", cip);
+            msg.oppositeAddr.sin_addr.s_addr = inet_addr(ip);
+            msg.msgType = msgType;
+        }
+            break;
+
+        //P2P模式私聊回应请求
+        case MSG_SHOW_RESPONSEUSER: {
+            msg.msgType =msgType;
+            msg.oppositeAddr = oppositeaddr;
+            if (result) {
+                msg.result = result;
+                msg.realAddr = realaddr;
+            }
+            else {
+                msg.result = result;
+            }
         }
             break;
 

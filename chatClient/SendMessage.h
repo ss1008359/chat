@@ -19,14 +19,20 @@ public:
     QLineEdit *info;
     ClientSocket cli;
     QString name;
+    struct sockaddr_in ownaddr;
 private:
+    struct sockaddr_in oppositeaddr;
+    struct sockaddr_in realaddr;
+    bool result;
     loginData data;
 public:
     void init() throw (ChatException);
-    void toMsgOppositeUser(loginData*);
-    void toMsgName();
     void toMsgUser();
+    void toMsgName();
     void toMsgPort();
+    void toMsgRequestUser(loginData*);
+    void toMsgResponseUser(bool, struct sockaddr_in, struct sockaddr_in);
+    void toMsgOppositeUser(loginData*);
 public slots:
     void toMsgChat();
 private:

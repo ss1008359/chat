@@ -22,33 +22,26 @@ static const uint qt_meta_data_PrivateChatWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       0,    0, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
- // slots: signature, parameters, type, tag, flags
-      19,   18,   18,   18, 0x0a,
-
        0        // eod
 };
 
 static const char qt_meta_stringdata_PrivateChatWindow[] = {
-    "PrivateChatWindow\0\0setMessage(loginData*)\0"
+    "PrivateChatWindow\0"
 };
 
 void PrivateChatWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
-        PrivateChatWindow *_t = static_cast<PrivateChatWindow *>(_o);
-        switch (_id) {
-        case 0: _t->setMessage((*reinterpret_cast< loginData*(*)>(_a[1]))); break;
-        default: ;
-        }
-    }
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
 }
 
 const QMetaObjectExtraData PrivateChatWindow::staticMetaObjectExtraData = {
@@ -82,11 +75,6 @@ int PrivateChatWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
-            qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
-    }
     return _id;
 }
 QT_END_MOC_NAMESPACE

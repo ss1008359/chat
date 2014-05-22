@@ -22,21 +22,24 @@ static const uint qt_meta_data_ThRecv[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       3,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
        8,    7,    7,    7, 0x05,
+      25,    7,    7,    7, 0x05,
+      47,    7,    7,    7, 0x05,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_ThRecv[] = {
-    "ThRecv\0\0sigInfo(QString)\0"
+    "ThRecv\0\0sigInfo(QString)\0request(sockaddr_in*)\0"
+    "response(sockaddr_in*)\0"
 };
 
 void ThRecv::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -46,6 +49,8 @@ void ThRecv::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         ThRecv *_t = static_cast<ThRecv *>(_o);
         switch (_id) {
         case 0: _t->sigInfo((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 1: _t->request((*reinterpret_cast< sockaddr_in*(*)>(_a[1]))); break;
+        case 2: _t->response((*reinterpret_cast< sockaddr_in*(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -83,9 +88,9 @@ int ThRecv::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 3;
     }
     return _id;
 }
@@ -95,5 +100,19 @@ void ThRecv::sigInfo(const QString & _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 1
+void ThRecv::request(sockaddr_in * _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+}
+
+// SIGNAL 2
+void ThRecv::response(sockaddr_in * _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 QT_END_MOC_NAMESPACE

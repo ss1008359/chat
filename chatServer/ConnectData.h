@@ -23,6 +23,7 @@ typedef struct msg_data {
     struct sockaddr_in localAddr;
     struct sockaddr_in oppositeAddr;
     struct sockaddr_in realAddr;
+    bool result;
 }msgData;
 
 #endif // CONNECTDATA_H

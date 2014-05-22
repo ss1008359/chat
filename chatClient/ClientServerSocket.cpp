@@ -1,4 +1,5 @@
 #include "ClientServerSocket.h"
+#include <cstdio>
 #include <unistd.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
@@ -14,6 +15,7 @@ void ClientServerSocket::initSocket() throw (ChatException)
     }
     //绑定ip地址
     r = bind(fd, (struct sockaddr*)&addr, sizeof(addr));
+    printf("bind = %d", r);
     if (r == -1) {
         close(fd);
         throw ChatException("bind错误");
@@ -27,12 +29,14 @@ void ClientServerSocket::initSocket() throw (ChatException)
 
 }
 
-int ClientServerSocket::accept(struct sockaddr_in *addr, int *length) throw (ChatException)
+int ClientServerSocket::accept() throw (ChatException)
 {
     //接收客户连接
     int cfd;
     //struct sockaddr_in ad;
-    cfd = ::accept(fd, (struct sockaddr*)addr, (socklen_t*)length);
+    printf("ffd = %d", fd);
+    cfd = ::accept(fd, NULL, 0);
+    printf("fd = %d", cfd);
     if (cfd == -1) {
         throw ChatException("accept错误");
     }
