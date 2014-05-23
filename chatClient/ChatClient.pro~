@@ -15,7 +15,9 @@ SOURCES=ChatClient.cpp	\
     ThPrivateRecv.cpp \
     JudgeDialog.cpp \
     ThAccept.cpp \
-    PrivateClientSocket.cpp
+    PrivateClientSocket.cpp\
+	ThPrivateChat.cpp\
+	ThClientAccept.cpp\
 
 HEADERS=ClientWindow.h \
     ChatException.h \
@@ -36,6 +38,8 @@ HEADERS=ClientWindow.h \
     JudgeDialog.h \
     ThAccept.h \
     PrivateClientSocket.h
+	ThPrivateChat.h\
+	ThClientAccept.h\
 
 CONFIG=release qt
 QT=core gui

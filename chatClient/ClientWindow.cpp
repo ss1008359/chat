@@ -27,7 +27,7 @@ void ClientWindow::bulidServer(struct sockaddr_in* addr)
     }
 
     struct sockaddr_in real = psw->thAccept.server.addr;
-     printf("port = %d", ntohs(real.sin_port));
+//     printf("port = %d", ntohs(real.sin_port));
     sendMessage.toMsgResponseUser(psw->result, *addr, real);
 }
 

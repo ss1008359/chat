@@ -68,15 +68,15 @@ void ThRecv::run()
                         break;
 
                     case MSG_SHOW_RESPONSEUSER: {
-                    printf("recvresponse\n");
-                    printf("port = %d\n", ntohs(msg.realAddr.sin_port));
+//                    printf("recvresponse\n");
+//                    printf("port = %d\n", ntohs(msg.realAddr.sin_port));
                         if (msg.result) {
-                            char ad[20];
+//                            char ad[20];
 //                            char numPort[20];
-                            memset(ad, 0, sizeof(ad));
+//                            memset(ad, 0, sizeof(ad));
 //                            memset(numPort, 0, sizeof(numPort));
-                            inet_ntop(AF_INET, &msg.realAddr.sin_addr, ad, sizeof(ad));
-                            printf("ip = %s", ad);
+//                            inet_ntop(AF_INET, &msg.realAddr.sin_addr, ad, sizeof(ad));
+//                            printf("ip = %s", ad);
 //                            int port = ntohs(msg.realAddr.sin_port);
 //                            sprintf(numPort, "%d", port);
 //                            QString name = msg.msgName;

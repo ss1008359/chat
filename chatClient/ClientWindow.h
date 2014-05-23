@@ -18,13 +18,11 @@
 #include "ClientSocket.h"
 #include "LoginData.h"
 #include "ConnectData.h"
-#include "ThPrivateChat.h"
 #include "PrivateChatWindow.h"
 #include "PrivateServerWindow.h"
 #include "IpAddress.h"
 #include "PrivateIpAddress.h"
 #include "ClientServerSocket.h"
-#include "ThClientAccept.h"
 #include "LoginData.h"
 #include "JudgeDialog.h"
 
@@ -58,8 +56,6 @@ private:
     ClientSocket client;
     SendMessage  sendMessage;
     ThRecv thRecv;
-    ThClientAccept thClientAccept;
-//    ThPrivateChat thPrivateChat;
     JudgeDialog *jd;
     IpAddressWidget *ipaw;
     PrivateIpAddressWidget *getrealip;

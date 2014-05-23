@@ -54,7 +54,7 @@ void SendMessage::toMsgRequestUser(loginData* data)
 
 void SendMessage::toMsgResponseUser(bool re, struct sockaddr_in opposite, struct sockaddr_in real)
 {
-    printf("sendresponse");
+//    printf("sendresponse");
     result = re;
     oppositeaddr = opposite;
     realaddr = real;

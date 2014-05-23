@@ -15,7 +15,7 @@ void ClientServerSocket::initSocket() throw (ChatException)
     }
     //绑定ip地址
     r = bind(fd, (struct sockaddr*)&addr, sizeof(addr));
-    printf("bind = %d", r);
+//    printf("bind = %d", r);
     if (r == -1) {
         close(fd);
         throw ChatException("bind错误");
@@ -34,9 +34,9 @@ int ClientServerSocket::accept() throw (ChatException)
     //接收客户连接
     int cfd;
     //struct sockaddr_in ad;
-    printf("ffd = %d", fd);
+//    printf("ffd = %d", fd);
     cfd = ::accept(fd, NULL, 0);
-    printf("fd = %d", cfd);
+//    printf("fd = %d", cfd);
     if (cfd == -1) {
         throw ChatException("accept错误");
     }
