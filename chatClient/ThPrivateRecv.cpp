@@ -30,9 +30,17 @@ void ThPrivateRecv::run()
                         memset(buf, 0, sizeof(buf));
                         memcpy(buf, msg.msgChat, sizeof(buf) - 1);
                         emit sigInfo(tr(buf));
+                        msg.msgType = MSG_PRIVATE_ECHO;
+                        send(fd, &msg, sizeof(msg), 0);
                     }
                         break;
 
+                    case MSG_PRIVATE_ECHO: {
+                        char buf[2048];
+                        memset(buf, 0, sizeof(buf));
+                        memcpy(buf, msg.msgChat, sizeof(buf) - 1);
+                        emit sigInfo(tr(buf));
+                    }
                     default:
                         break;
                 }

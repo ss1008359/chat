@@ -14,13 +14,14 @@ void JudgeDialog::judgeCancel()
 
 JudgeDialog::JudgeDialog(QWidget *p)
 {
-    this->resize(100, 100);
-    this->move((1366-100)/2, (768-100)/2);
+    this->setWindowTitle(tr("私聊请求"));
+    this->resize(300, 100);
+    this->move((1366-300)/2, (768-100)/2);
 
     btnok = new QPushButton(tr("接受"), this);
     btncancel = new QPushButton(tr("拒绝"), this);
-    btnok->move(30, 50);
-    btncancel->move(60, 50);
+    btnok->move(50, 50);
+    btncancel->move(200, 50);
 
     connect(btnok, SIGNAL(clicked()), this, SLOT(judgeOk()));
     connect(btncancel, SIGNAL(clicked()), this, SLOT(judgeCancel()));

@@ -48,6 +48,7 @@ void PrivateChatWindow::initClient()
         connect(&thPrivateRecv, SIGNAL(sigInfo(const QString&)),
                 edtinfo, SLOT(append(const QString&)));
         thPrivateRecv.start();
+        edtinfo->append(strName);
         edtinfo->append(tr("接受信息线程启动"));
         edtinfo->append("=============================");
     }

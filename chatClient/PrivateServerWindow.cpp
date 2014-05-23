@@ -33,6 +33,7 @@ void PrivateServerWindow::buildServer()
         port++;
         connect(btnsend, SIGNAL(clicked()),
                 &thAccept.privateSendMessage, SLOT(toMsgChat()));
+        edtinfo->append(strName);
     }
     catch(ChatException e) {
          edtinfo->append(tr(e.what()));

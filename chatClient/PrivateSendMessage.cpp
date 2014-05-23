@@ -28,9 +28,9 @@ void PrivateSendMessage::toSend(int msgType)
             //将文本框内容存入到字符串中
             QString allstr = name + "("
                     + time.toString("yyyy-MM-dd hh:mm:ss ddd") + "):\n" + edtmsg->text();
-            //    const char  *c_str = allstr.toLocal8Bit();
+//            const char  *c_str = allstr.toLocal8Bit();
             const char *buf = allstr.toLocal8Bit();
-            emit sigInfo(tr(buf));
+//            emit sigInfo(tr(buf));
             memcpy(msg.msgChat, buf, sizeof(msg.msgChat));
             edtmsg->clear();
             edtmsg->setFocus();

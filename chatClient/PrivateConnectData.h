@@ -9,6 +9,7 @@
 
 //私聊网络协议
 #define MSG_PRIVATE_CHAT                0
+#define MSG_PRIVATE_ECHO               1
 
 typedef struct msg_private_data {
     int msgType;
