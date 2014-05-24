@@ -199,16 +199,16 @@ ClientWindow::ClientWindow(QWidget*p)
     chatMenu = new QMenu(tr("客户端"), bar);
     actStart = new QAction(tr("启动"), chatMenu);
     actShowOnlineUser = new QAction(tr("显示在线用户"), chatMenu);
-    actPrivateChat = new QAction(tr("私聊"), chatMenu);
-    actRealIp = new QAction(tr("获取ip"), chatMenu);
+//    actPrivateChat = new QAction(tr("私聊"), chatMenu);
+    actRealIp = new QAction(tr("请求私聊"), chatMenu);
     actExit = new QAction(tr("结束"), chatMenu);
 
     chatMenu->addAction(actStart);
     chatMenu->addSeparator();
     chatMenu->addAction(actShowOnlineUser);
     chatMenu->addSeparator();
-    chatMenu->addAction(actPrivateChat);
-    chatMenu->addSeparator();
+//    chatMenu->addAction(actPrivateChat);
+//    chatMenu->addSeparator();
     chatMenu->addAction(actRealIp);
     chatMenu->addSeparator();
     chatMenu->addAction(actExit);
